@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: solr-external
+  namespace: solr
+spec:
+  type: LoadBalancer
+  selector:
+    app: solrcloud
+    solr-cloud: explore
+  ports:
+    - name: solr
+      port: 8983
+      targetPort: 8983
+      protocol: TCP
