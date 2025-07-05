@@ -8,4 +8,4 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  url: https://apache.github.io/solr-operator
+  url: https://solr.apache.org/charts
