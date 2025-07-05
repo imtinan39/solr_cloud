@@ -1,0 +1,48 @@
+###########################
+# 3. SolrCloud (NO TLS, NO DNS, LoadBalancer for browser access)
+###########################
+apiVersion: solr.apache.org/v1beta1
+kind: SolrCloud
+metadata:
+  name: explore
+  namespace: solr
+spec:
+  replicas: 3
+  solrImage:
+    repository: solr
+    tag: 8.8.2
+  solrJavaMem: "-Xms500M -Xmx510M"
+  dataStorage:
+    persistent:
+      pvcTemplate:
+        spec:
+          resources:
+            requests:
+              storage: 2Gi
+      reclaimPolicy: Delete
+  solrAddressability:
+    external:
+      method: LoadBalancer
+      useExternalAddress: true
+    podPort: 8983
+  solrSecurity:
+    authenticationType: Basic
+  updateStrategy:
+    method: Managed
+    managed:
+      maxPodsUnavailable: 2
+      maxShardReplicasUnavailable: 2
+  zookeeperRef:
+    provided:
+      replicas: 3
+      image:
+        repository: pravega/zookeeper
+        tag: 0.2.9
+      persistence:
+        reclaimPolicy: Delete
+        spec:
+          accessModes: [ReadWriteOnce]
+          resources:
+            requests:
+              storage: 2Gi
+
