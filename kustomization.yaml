@@ -5,3 +5,4 @@ resources:
   - helm_repository.yaml
   - helm_release.yaml
   - solr_cloud.yaml
+  - solr-loadbalancer.yaml
