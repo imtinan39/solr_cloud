@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: solr-admin-lb
+  name: solr-admin-lb1
   namespace: solr1
 spec:
   type: LoadBalancer  #####
