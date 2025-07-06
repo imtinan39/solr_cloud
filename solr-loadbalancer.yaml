@@ -4,7 +4,7 @@ metadata:
   name: solr-admin-lb
   namespace: solr1
 spec:
-  type: LoadBalancer
+  type: LoadBalancer  #####
   selector:
     solr-cloud: my-solrcloud
     technology: solr-cloud
