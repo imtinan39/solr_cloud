@@ -11,7 +11,7 @@ spec:
   customSolrKubeOptions:
     podOptions:
       labels:
-        solr-cloud: my-solrcloud
+        solr-cloud: my-solrcloud ###
         technology: solr-cloud
   zookeeperRef:
     provided:
