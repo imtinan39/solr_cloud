@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: solr-operator
-  namespace: solr2
+  namespace: solr3
 spec:
   releaseName: solr-operator
   interval: 5m
