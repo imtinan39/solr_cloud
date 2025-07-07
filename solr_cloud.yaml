@@ -2,7 +2,7 @@ apiVersion: solr.apache.org/v1beta1
 kind: SolrCloud
 metadata:
   name: my-solrcloud-v5
-  namespace: solr2
+  namespace: solr3
 spec:
   replicas: 2
   solrImage:
