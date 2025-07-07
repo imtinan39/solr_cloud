@@ -2,5 +2,7 @@
 # 4. Kustomization.yaml
 ###########################
 resources:
+  - helm_release.yaml
+  - helm_repository.yaml
   - solr_cloud.yaml ##
   - solr-loadbalancer.yaml
