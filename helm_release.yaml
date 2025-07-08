@@ -9,9 +9,9 @@ spec:
   timeout: 5m
   install:
     createNamespace: true
-    crds: Create
+    crds: Skip
   upgrade:
-    crds: CreateReplace
+    crds: Skip
   chart:
     spec:
       chart: solr-operator
