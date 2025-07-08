@@ -4,7 +4,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: apache-solr-chart ###
+  name: apache-solr-chart ##########
   namespace: solr3
 spec:
   interval: 10m
