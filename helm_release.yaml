@@ -18,5 +18,5 @@ spec:
       version: 0.9.1
       sourceRef:
         kind: HelmRepository
-        name: apache-solr-chart
+        name: apache-solr-charts
         namespace: solr3
