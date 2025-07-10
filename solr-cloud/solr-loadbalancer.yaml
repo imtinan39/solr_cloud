@@ -6,7 +6,7 @@ metadata:
 spec:
   type: LoadBalancer  #####
   selector:
-    solr-cloud: my-solrcloud-v7
+    solr-cloud: my-solrcloud-v8
     technology: solr-cloud
   ports:
     - name: solr
