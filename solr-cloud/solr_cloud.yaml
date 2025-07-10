@@ -1,7 +1,7 @@
 apiVersion: solr.apache.org/v1beta1
 kind: SolrCloud
 metadata:
-  name: my-solrcloud-v7
+  name: my-solrcloud-v8
   namespace: solr3
 spec:
   replicas: 2
@@ -11,7 +11,7 @@ spec:
   customSolrKubeOptions:
     podOptions:
       labels:
-        solr-cloud: my-solrcloud-v7 ###
+        solr-cloud: my-solrcloud-v8 ###
         technology: solr-cloud
   zookeeperRef:
     provided:
