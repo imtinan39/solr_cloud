@@ -24,9 +24,6 @@ spec:
   # Optional labels and volume mount
   customSolrKubeOptions:
     podOptions:
-      volumeMounts:
-        - name: data
-          mountPath: /var/solr
       labels:
         solr-cloud: my-solrcloud-v9
         technology: solr-cloud
