@@ -9,7 +9,19 @@ spec:
     repository: solr
     tag: 9.5.0
 
-  # Pod anti-affinity to distribute pods across nodes
+  # Persistent data storage using PVCs
+  dataStorage:
+    persistent:
+      reclaimPolicy: Retain
+      pvcTemplate:
+        spec:
+          accessModes: [ "ReadWriteOnce" ]
+          resources:
+            requests:
+              storage: 10Gi
+          storageClassName: default
+
+  # Pod anti-affinity to spread across nodes
   solrPodOptions:
     affinity:
       podAntiAffinity:
@@ -22,24 +34,10 @@ spec:
                     - my-solrcloud-v9
             topologyKey: "kubernetes.io/hostname"
 
-    # Persistent volume will be mounted automatically by the operator
+    # Solr data is written here (will be backed by the PVC named 'data')
     volumeMounts:
-      - name: solr-data
+      - name: data
         mountPath: /var/solr
-
-  # Enable persistence so SolrCloud pods use PVCs
-  solrPersistence:
-    persistent: true
-    reclaimPolicy: Retain
-    volumeClaimTemplates:
-      - metadata:
-          name: solr-data
-        spec:
-          accessModes: [ "ReadWriteOnce" ]
-          resources:
-            requests:
-              storage: 10Gi
-          storageClassName: default  # Adjust if needed
 
   customSolrKubeOptions:
     podOptions:
