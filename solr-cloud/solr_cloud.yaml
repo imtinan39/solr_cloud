@@ -21,29 +21,38 @@ spec:
               storage: 10Gi
           storageClassName: default
 
-  # Pod anti-affinity to spread across nodes
-  solrPodOptions:
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: solr-cloud
-                  operator: In
-                  values:
-                    - my-solrcloud-v9
-            topologyKey: "kubernetes.io/hostname"
-
-    # Solr data is written here (will be backed by the PVC named 'data')
-    volumeMounts:
-      - name: data
-        mountPath: /var/solr
-
-  customSolrKubeOptions:
-    podOptions:
-      labels:
+  # --- CORRECTED SECTION ---
+  # Use podTemplate for general pod configuration, including affinity and volume mounts
+  podTemplate:
+    metadata:
+      labels: # Labels for the SolrCloud pods
         solr-cloud: my-solrcloud-v9
         technology: solr-cloud
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: solr-cloud
+                    operator: In
+                    values:
+                      - my-solrcloud-v9
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: solr # This name is usually fixed for the main Solr container
+          volumeMounts:
+            - name: data # The 'data' volume is typically provided by the Solr operator via dataStorage
+              mountPath: /var/solr
+          # You might also want to add resource limits/requests here for the solr container
+          # resources:
+          #   requests:
+          #     cpu: "500m"
+          #     memory: "1Gi"
+          #   limits:
+          #     cpu: "1"
+          #     memory: "2Gi"
+  # --- END CORRECTED SECTION ---
 
   zookeeperRef:
     provided:
@@ -55,4 +64,3 @@ spec:
           resources:
             requests:
               storage: 5Gi
-
