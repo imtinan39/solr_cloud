@@ -8,11 +8,46 @@ spec:
   solrImage:
     repository: solr
     tag: 9.5.0
+
+  # Pod anti-affinity to distribute pods across nodes
+  solrPodOptions:
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: solr-cloud
+                  operator: In
+                  values:
+                    - my-solrcloud-v9
+            topologyKey: "kubernetes.io/hostname"
+
+    # Add persistent storage for Solr
+    volumeMounts:
+      - name: solr-data
+        mountPath: /var/solr
+    volumes: []  # Will be dynamically provided by the solrPersistence below
+
+  # Enable persistence so SolrCloud pods use PVCs
+  solrPersistence:
+    persistent: true
+    reclaimPolicy: Retain
+    volumeClaimTemplates:
+      - metadata:
+          name: solr-data
+        spec:
+          accessModes: [ "ReadWriteOnce" ]
+          resources:
+            requests:
+              storage: 10Gi
+          storageClassName: default  # Adjust if you're using a custom StorageClass
+
   customSolrKubeOptions:
     podOptions:
       labels:
-        solr-cloud: my-solrcloud-v9 ###
+        solr-cloud: my-solrcloud-v9
         technology: solr-cloud
+
   zookeeperRef:
     provided:
       replicas: 3
