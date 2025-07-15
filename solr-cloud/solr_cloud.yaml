@@ -22,11 +22,10 @@ spec:
                     - my-solrcloud-v9
             topologyKey: "kubernetes.io/hostname"
 
-    # Add persistent storage for Solr
+    # Persistent volume will be mounted automatically by the operator
     volumeMounts:
       - name: solr-data
         mountPath: /var/solr
-    volumes: []  # Will be dynamically provided by the solrPersistence below
 
   # Enable persistence so SolrCloud pods use PVCs
   solrPersistence:
@@ -40,7 +39,7 @@ spec:
           resources:
             requests:
               storage: 10Gi
-          storageClassName: default  # Adjust if you're using a custom StorageClass
+          storageClassName: default  # Adjust if needed
 
   customSolrKubeOptions:
     podOptions:
